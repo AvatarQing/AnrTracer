@@ -1,0 +1,12 @@
+/*
+!/demo
+!/msg-tracer
+!/tracer-dashboard
+!/gradle
+!.gitignore
+!build.gradle
+!build.gradle.kts
+!gradle.properties
+!gradlew
+!gradlew.bat
+!settings.gradle

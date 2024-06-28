@@ -1,0 +1,8 @@
+/*
+!/src
+!/keystore
+!.gitignore
+!build.gradle
+!build.gradle.kts
+!proguard-rules.pro
+!google-services.json

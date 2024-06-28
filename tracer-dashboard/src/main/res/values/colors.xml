@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mt_msg_type_cluster">#999999</color>
+    <color name="mt_msg_type_rolling">#00E676</color>
+    <color name="mt_msg_type_fat">#FF5252</color>
+    <color name="mt_msg_type_system">#42A5F5</color>
+    <color name="mt_msg_type_text_color">#ffffff</color>
+</resources>

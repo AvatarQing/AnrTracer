@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/showFloatDashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_float_dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_block"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showFloatDashboard" />
+
+    <Button
+        android:id="@+id/buttonSendRollingMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_rolling_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBlock" />
+
+    <Button
+        android:id="@+id/buttonSendFatMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_fat_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSendRollingMsg" />
+</androidx.constraintlayout.widget.ConstraintLayout>

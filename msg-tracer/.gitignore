@@ -1,0 +1,7 @@
+/*
+!/src
+!.gitignore
+!build.gradle.kts
+!proguard-rules.pro
+!consumer-rules.pro
+!CMakeLists.txt

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MsgTracer</string>
+    <string name="button_block">阻塞10秒</string>
+    <string name="show_float_dashboard">显示悬浮看板</string>
+    <string name="send_rolling_msg">发送100ms耗时的消息</string>
+    <string name="send_fat_msg">发送500ms耗时的消息</string>
+</resources>
