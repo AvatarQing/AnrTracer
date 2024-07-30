@@ -3,14 +3,12 @@ package indie.riki.msgtracer.demo.main
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import indie.riki.msgtracer.dashboard.MsgHistoryDecorator
 import indie.riki.msgtracer.demo.databinding.ActivityMainBinding
-import timber.log.Timber
 
 /**
- * @author liuqing@vroadtech.com
+ * @author rikiqliu@gmail.com
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding

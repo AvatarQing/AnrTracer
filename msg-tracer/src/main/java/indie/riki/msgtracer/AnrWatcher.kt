@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.ActivityManager.ProcessErrorStateInfo
 import android.content.Context
-import android.os.Looper
-import android.os.Message
 import android.os.Process
 import android.os.SystemClock
 import android.util.ArrayMap
 import androidx.annotation.Keep
+import indie.riki.msgtracer.MessageTracer.getPendingMessagesInMessageQueue
+import indie.riki.msgtracer.MessageTracer.getPendingMsgList
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -29,7 +29,6 @@ object AnrWatcher {
     private const val CHECK_ERROR_STATE_INTERVAL = 500L
     private const val ANR_DUMP_MAX_TIME = 20000L
     private const val CHECK_ERROR_STATE_COUNT = ANR_DUMP_MAX_TIME / CHECK_ERROR_STATE_INTERVAL
-    private const val MAX_PENDING_COUNT = 50
 
     init {
         System.loadLibrary("anrwatcher")
@@ -64,34 +63,13 @@ object AnrWatcher {
 
     @SuppressLint("PrivateApi")
     private fun reportANR() {
-        MessageTracer.flush()
         Timber.tag(TAG).d(">>>>>>>>>>>>>>>>>>>>> 主线程历史消息")
+        MessageTracer.flush()
         MessageTracer.getHistoryCopy().forEach { Timber.tag(TAG).d(it.toString()) }
         Timber.tag(TAG).d("<<<<<<<<<<<<<<<<<<<<< 主线程历史消息")
 
-        val pendingMessages = mutableListOf<Msg>()
-        try {
-            val fieldNext = Message::class.java.getDeclaredField("next").apply { isAccessible = true }
-            var message: Message? = getPendingMessages()
-            val now = SystemClock.uptimeMillis()
-            var count = 0
-            while (message != null && count < MAX_PENDING_COUNT) {
-                val msg = PendingMsg(
-                    waitingTime = message.`when` - now,
-                    isSystem = message.target?.javaClass?.name == "android.app.ActivityThread\$H",
-                    target = message.target?.toString() ?: "",
-                    callback = message.callback?.toString() ?: "",
-                    what = message.what,
-                )
-                pendingMessages.add(msg)
-                message = fieldNext.get(message) as? Message
-                count++
-            }
-        } catch (e: Exception) {
-            Timber.tag(TAG).w(e, "getPendingMessages error")
-        }
         Timber.tag(TAG).d(">>>>>>>>>>>>>>>>>>>>> 主线程待执行消息")
-        pendingMessages.forEach { Timber.tag(TAG).d(it.toString()) }
+        getPendingMsgList().forEach { Timber.tag(TAG).d(it.toString()) }
         Timber.tag(TAG).d("<<<<<<<<<<<<<<<<<<<<< 主线程待执行消息")
     }
 
@@ -132,22 +110,10 @@ object AnrWatcher {
         return false
     }
 
-    private fun getPendingMessages(): Message? {
-        return try {
-            val queue = Looper.getMainLooper().queue
-            val field = queue.javaClass.getDeclaredField("mMessages")
-            field.isAccessible = true
-            field.get(queue) as? Message
-        } catch (e: Exception) {
-            Timber.tag(TAG).w(e, "[getPendingMessages] error")
-            null
-        }
-    }
-
     @SuppressLint("PrivateApi")
     private fun isMainThreadBlocked(): Boolean {
         try {
-            val msg = getPendingMessages()
+            val msg = getPendingMessagesInMessageQueue()
             if (msg == null) Timber.tag(TAG).d("mMessages is null")
             else {
                 Timber.tag(TAG).d("ANR Message: $msg")

@@ -2,6 +2,7 @@ package indie.riki.msgtracer.dashboard
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
@@ -10,22 +11,22 @@ import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.WindowManager
+import indie.riki.msgtracer.MessageTracer
+import indie.riki.msgtracer.Msg
 import indie.riki.msgtracer.dashboard.databinding.MtFloatMsgDashboardBinding
 
 /**
- * @author liuqing@vroadtech.com
+ * @author rikiqliu@gmail.com
  */
-class MsgHistoryDecorator(private val context: Context) {
+class MsgHistoryDecorator(context: Context) {
     private val windowManager = context.getSystemService(WindowManager::class.java)
-    private lateinit var viewBinding: MtFloatMsgDashboardBinding
+    private val viewBinding: MtFloatMsgDashboardBinding = MtFloatMsgDashboardBinding.inflate(LayoutInflater.from(context))
     private lateinit var layoutParams: WindowManager.LayoutParams
     private var isShowing = false
     private val mainHandler by lazy { Handler(Looper.getMainLooper()) }
 
     init {
-        viewBinding = MtFloatMsgDashboardBinding.inflate(LayoutInflater.from(context))
         initLayoutParams()
         initDrag()
         initClickListeners()
@@ -73,7 +74,18 @@ class MsgHistoryDecorator(private val context: Context) {
 
     private fun initClickListeners() {
         viewBinding.buttonDetail.setOnClickListener {
-
+            MessageTracer.flush()
+            MsgSnapshotActivity.run {
+                historicalMsgList.clear()
+                pendingMsgList.clear()
+                historicalMsgList.addAll(MessageTracer.getHistoryCopy())
+                pendingMsgList.addAll(MessageTracer.getPendingMsgList())
+            }
+            it.context.startActivity(
+                Intent(it.context, MsgSnapshotActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+            hide()
         }
         viewBinding.buttonClose.setOnClickListener { hide() }
     }
@@ -83,6 +95,7 @@ class MsgHistoryDecorator(private val context: Context) {
             if (!isShowing) {
                 isShowing = true
                 windowManager.addView(viewBinding.root, layoutParams)
+                MessageTracer.addMsgListener(msgListener)
             }
         }
     }
@@ -91,8 +104,15 @@ class MsgHistoryDecorator(private val context: Context) {
         mainHandler.post {
             if (isShowing) {
                 isShowing = false
+                MessageTracer.removeMsgListener(msgListener)
                 windowManager.removeView(viewBinding.root)
             }
+        }
+    }
+
+    private val msgListener = object : MessageTracer.MsgListener {
+        override fun onMsgRecorded(msg: Msg) {
+
         }
     }
 }

@@ -1,5 +1,6 @@
 package indie.riki.msgtracer
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.os.Handler
@@ -29,6 +30,9 @@ object MessageTracer {
 
     /** 消息历史队列长度 */
     private const val HISTORY_MAX_SIZE = 500
+
+    /** 待调度消息获取多少条 */
+    private const val MAX_PENDING_COUNT = 50
 
     /** 历史消息 */
     private val histories = ArrayDeque<Msg>()
@@ -177,8 +181,47 @@ object MessageTracer {
         msgListeners.remove(listener)
     }
 
-
     interface MsgListener {
         fun onMsgRecorded(msg: Msg)
     }
+
+    @SuppressLint("PrivateApi")
+    fun getPendingMessagesInMessageQueue(): Message? {
+        return try {
+            val queue = Looper.getMainLooper().queue
+            val field = queue.javaClass.getDeclaredField("mMessages")
+            field.isAccessible = true
+            field.get(queue) as? Message
+        } catch (e: Exception) {
+            Timber.tag(TAG).w(e, "[getPendingMessages] error")
+            null
+        }
+    }
+
+    @SuppressLint("PrivateApi")
+    fun getPendingMsgList(): List<Msg> {
+        val pendingMessages = mutableListOf<Msg>()
+        try {
+            val fieldNext = Message::class.java.getDeclaredField("next").apply { isAccessible = true }
+            var message: Message? = getPendingMessagesInMessageQueue()
+            val now = SystemClock.uptimeMillis()
+            var count = 0
+            while (message != null && count < MAX_PENDING_COUNT) {
+                val msg = PendingMsg(
+                    waitingTime = message.`when` - now,
+                    isSystem = message.target?.javaClass?.name == "android.app.ActivityThread\$H",
+                    target = message.target?.toString() ?: "",
+                    callback = message.callback?.toString() ?: "",
+                    what = message.what,
+                )
+                pendingMessages.add(msg)
+                message = fieldNext.get(message) as? Message
+                count++
+            }
+        } catch (e: Exception) {
+            Timber.tag(TAG).w(e, "getPendingMessages error")
+        }
+        return pendingMessages
+    }
+
 }

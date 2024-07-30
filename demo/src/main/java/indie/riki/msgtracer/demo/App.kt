@@ -6,7 +6,7 @@ import indie.riki.msgtracer.MessageTracer
 import timber.log.Timber
 
 /**
- * @author liuqing@vroadtech.com
+ * @author rikiqliu@gmail.com
  */
 open class App : Application() {
     companion object {

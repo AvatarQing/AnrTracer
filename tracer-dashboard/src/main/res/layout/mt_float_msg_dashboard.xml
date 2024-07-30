@@ -125,7 +125,7 @@
         app:layout_constraintStart_toEndOf="@+id/squareCluster"
         app:layout_constraintTop_toTopOf="@+id/squareCluster" />
 
-    <indie.riki.msgtracer.dashboard.MsgGraph
+    <indie.riki.msgtracer.dashboard.HistoricalMsgGraph
         android:id="@+id/msgGraph"
         android:layout_width="match_parent"
         android:layout_height="0dp"

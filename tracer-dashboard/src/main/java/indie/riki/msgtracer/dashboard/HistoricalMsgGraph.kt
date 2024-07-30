@@ -17,9 +17,9 @@ import indie.riki.msgtracer.SystemMsg
 import java.util.ArrayDeque
 
 /**
- * @author liuqing@vroadtech.com
+ * @author rikiqliu@gmail.com
  */
-class MsgGraph @JvmOverloads constructor(
+class HistoricalMsgGraph @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 

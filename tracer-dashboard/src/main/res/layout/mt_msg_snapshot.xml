@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#80000000"
+        android:padding="8dp">
+
+        <View
+            android:id="@+id/squarePendingOthers"
+            android:layout_width="@dimen/mt_msg_dashboard_square_size"
+            android:layout_height="@dimen/mt_msg_dashboard_square_size"
+            android:background="@color/mt_msg_type_pending_others"
+            app:layout_constraintEnd_toStartOf="@+id/textPendingOthers"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textPendingOthers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_square_label_spacing"
+            android:text="@string/mt_msg_type_pending_others"
+            android:textColor="@color/mt_msg_type_text_color"
+            android:textSize="@dimen/mt_msg_dashboard_msg_type_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/squarePendingOthers"
+            app:layout_constraintEnd_toStartOf="@+id/squarePendingSystem"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/squarePendingOthers"
+            app:layout_constraintTop_toTopOf="@+id/squarePendingOthers" />
+
+        <View
+            android:id="@+id/squarePendingSystem"
+            android:layout_width="@dimen/mt_msg_dashboard_square_size"
+            android:layout_height="@dimen/mt_msg_dashboard_square_size"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_msg_type_spacing"
+            android:background="@color/mt_msg_type_system"
+            app:layout_constraintBottom_toBottomOf="@+id/squarePendingOthers"
+            app:layout_constraintEnd_toStartOf="@+id/textPendingSystem"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/textPendingOthers"
+            app:layout_constraintTop_toTopOf="@+id/squarePendingOthers" />
+
+        <TextView
+            android:id="@+id/textPendingSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_square_label_spacing"
+            android:text="@string/mt_msg_type_pending_system"
+            android:textColor="@color/mt_msg_type_text_color"
+            android:textSize="@dimen/mt_msg_dashboard_msg_type_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/squarePendingSystem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/squarePendingSystem"
+            app:layout_constraintTop_toTopOf="@+id/squarePendingSystem" />
+
+        <indie.riki.msgtracer.dashboard.PendingMsgGraph
+            android:id="@+id/pendingMsgGraph"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textPendingOthers" />
+
+        <View
+            android:id="@+id/squareSystem"
+            android:layout_width="@dimen/mt_msg_dashboard_square_size"
+            android:layout_height="@dimen/mt_msg_dashboard_square_size"
+            android:layout_marginTop="8dp"
+            android:background="@color/mt_msg_type_system"
+            android:nestedScrollingEnabled="@+id/textSystem"
+            app:layout_constraintEnd_toStartOf="@+id/textSystem"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pendingMsgGraph" />
+
+        <TextView
+            android:id="@+id/textSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_square_label_spacing"
+            android:text="@string/mt_msg_type_system"
+            android:textColor="@color/mt_msg_type_text_color"
+            android:textSize="@dimen/mt_msg_dashboard_msg_type_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/squareSystem"
+            app:layout_constraintEnd_toStartOf="@+id/squareRolling"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/squareSystem"
+            app:layout_constraintTop_toTopOf="@+id/squareSystem" />
+
+        <View
+            android:id="@+id/squareRolling"
+            android:layout_width="@dimen/mt_msg_dashboard_square_size"
+            android:layout_height="@dimen/mt_msg_dashboard_square_size"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_msg_type_spacing"
+            android:background="@color/mt_msg_type_rolling"
+            android:nestedScrollingEnabled="@+id/textRolling"
+            app:layout_constraintEnd_toStartOf="@+id/textRolling"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/textSystem"
+            app:layout_constraintTop_toTopOf="@+id/squareSystem" />
+
+        <TextView
+            android:id="@+id/textRolling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_square_label_spacing"
+            android:text="@string/mt_msg_type_rolling"
+            android:textColor="@color/mt_msg_type_text_color"
+            android:textSize="@dimen/mt_msg_dashboard_msg_type_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/squareRolling"
+            app:layout_constraintEnd_toStartOf="@+id/squareFat"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/squareRolling"
+            app:layout_constraintTop_toTopOf="@+id/squareRolling" />
+
+        <View
+            android:id="@+id/squareFat"
+            android:layout_width="@dimen/mt_msg_dashboard_square_size"
+            android:layout_height="@dimen/mt_msg_dashboard_square_size"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_msg_type_spacing"
+            android:background="@color/mt_msg_type_fat"
+            app:layout_constraintEnd_toStartOf="@+id/textFat"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/textRolling"
+            app:layout_constraintTop_toTopOf="@+id/squareRolling" />
+
+        <TextView
+            android:id="@+id/textFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_square_label_spacing"
+            android:text="@string/mt_msg_type_fat"
+            android:textColor="@color/mt_msg_type_text_color"
+            android:textSize="@dimen/mt_msg_dashboard_msg_type_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/squareFat"
+            app:layout_constraintEnd_toStartOf="@+id/squareCluster"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/squareFat"
+            app:layout_constraintTop_toTopOf="@+id/squareFat" />
+
+        <View
+            android:id="@+id/squareCluster"
+            android:layout_width="@dimen/mt_msg_dashboard_square_size"
+            android:layout_height="@dimen/mt_msg_dashboard_square_size"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_msg_type_spacing"
+            android:background="@color/mt_msg_type_cluster"
+            app:layout_constraintEnd_toStartOf="@+id/textCluster"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/textFat"
+            app:layout_constraintTop_toTopOf="@+id/squareFat" />
+
+        <TextView
+            android:id="@+id/textCluster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mt_msg_dashboard_square_label_spacing"
+            android:text="@string/mt_msg_type_cluster"
+            android:textColor="@color/mt_msg_type_text_color"
+            android:textSize="@dimen/mt_msg_dashboard_msg_type_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/squareCluster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/squareCluster"
+            app:layout_constraintTop_toTopOf="@+id/squareCluster" />
+
+        <indie.riki.msgtracer.dashboard.HistoricalMsgGraph
+            android:id="@+id/msgGraph"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="84dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textCluster" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -36,4 +36,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.hellocharts) { artifact { type = "aar" } }
 }

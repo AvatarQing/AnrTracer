@@ -4,5 +4,6 @@
     <color name="mt_msg_type_rolling">#00E676</color>
     <color name="mt_msg_type_fat">#FF5252</color>
     <color name="mt_msg_type_system">#42A5F5</color>
+    <color name="mt_msg_type_pending_others">#AAAAAA</color>
     <color name="mt_msg_type_text_color">#ffffff</color>
 </resources>

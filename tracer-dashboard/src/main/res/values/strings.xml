@@ -4,4 +4,6 @@
     <string name="mt_msg_type_rolling">Rolling</string>
     <string name="mt_msg_type_fat">Fat</string>
     <string name="mt_msg_type_system">System</string>
+    <string name="mt_msg_type_pending_others">Pending others</string>
+    <string name="mt_msg_type_pending_system">Pending system</string>
 </resources>
