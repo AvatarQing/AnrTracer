@@ -16,19 +16,8 @@ android {
 
         setProperty("archivesBaseName", "${applicationId}-${versionCode}-${versionName}")
     }
-    signingConfigs {
-        getByName("debug") {
-            keyAlias = "devdebug"
-            keyPassword = "devdebug"
-            storeFile = file("./keystore/devdebug.keystore")
-            storePassword = "devdebug"
-        }
-    }
 
     buildTypes {
-        debug {
-            signingConfig = signingConfigs["debug"]
-        }
         release {
             isMinifyEnabled = true
             proguardFiles(
